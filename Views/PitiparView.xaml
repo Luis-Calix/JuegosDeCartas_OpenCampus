@@ -1,0 +1,156 @@
+<UserControl x:Class="JuegosDeCartas_OpenCampus.Views.PitiparView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="750" d:DesignWidth="1200">
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="pack://application:,,,/Assets/poker_texture.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+
+        <Border Margin="30" CornerRadius="25" BorderThickness="4" BorderBrush="#D4AF37">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Título y puntos -->
+                <Grid Grid.Row="0" Margin="20,15">
+                    <TextBlock Text="{Binding GameTitle}"
+                               FontSize="32" FontWeight="Bold" Foreground="#F2D479"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding Score, StringFormat='Puntos: {0}'}"
+                               FontSize="18" Foreground="#F2D479"
+                               HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                </Grid>
+
+                <!-- Área de cartas -->
+                <Grid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="220"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="220"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Carta actual (jugador) -->
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                        <TextBlock Text="Tu carta" FontSize="16" Foreground="White"
+                                   HorizontalAlignment="Center" Margin="0,0,0,12"/>
+                        <Border Width="160" Height="220" CornerRadius="16"
+                                Background="White" BorderBrush="#D4AF37" BorderThickness="4">
+                            <Grid>
+                                <!-- Símbolo de fondo decorativo -->
+                                <TextBlock Text="{Binding CurrentSuit}" FontSize="90"
+                                           Foreground="{Binding CurrentCardColor}"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Opacity="0.12" Margin="0,20,0,0"/>
+                                <!-- Valor central -->
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding CurrentRank}" FontSize="52" FontWeight="Bold"
+                                               HorizontalAlignment="Center"
+                                               Foreground="{Binding CurrentCardColor}"/>
+                                    <TextBlock Text="{Binding CurrentSuit}" FontSize="30"
+                                               HorizontalAlignment="Center"
+                                               Foreground="{Binding CurrentCardColor}"/>
+                                </StackPanel>
+                                <!-- Esquina superior izquierda -->
+                                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8,6">
+                                    <TextBlock Text="{Binding CurrentRank}" FontSize="14" FontWeight="Bold"
+                                               Foreground="{Binding CurrentCardColor}"/>
+                                    <TextBlock Text="{Binding CurrentSuit}" FontSize="12"
+                                               Foreground="{Binding CurrentCardColor}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Flecha con pregunta -->
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Text="→" FontSize="52" Foreground="#F2D479"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="¿Pi Ti Par?" FontSize="13" Foreground="#F2D479"
+                                   HorizontalAlignment="Center" TextWrapping="Wrap"
+                                   TextAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Carta dealer (oculta hasta revelar) -->
+                    <StackPanel Grid.Column="2" HorizontalAlignment="Center">
+                        <TextBlock Text="Carta siguiente" FontSize="16" Foreground="White"
+                                   HorizontalAlignment="Center" Margin="0,0,0,12"/>
+
+                        <!-- Boca abajo -->
+                        <Border Width="160" Height="220" CornerRadius="16"
+                                BorderBrush="#D4AF37" BorderThickness="4"
+                                Visibility="{Binding IsRevealed, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#2B1B4A" Offset="0"/>
+                                    <GradientStop Color="#1A0F2E" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Grid>
+                                <TextBlock Text="?" FontSize="72" FontWeight="Bold"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Foreground="#D4AF37"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Revelada -->
+                        <Border Width="160" Height="220" CornerRadius="16"
+                                Background="White" BorderBrush="#D4AF37" BorderThickness="4"
+                                Visibility="{Binding IsRevealed, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <Grid>
+                                <TextBlock Text="{Binding RevealedSuit}" FontSize="90"
+                                           Foreground="{Binding RevealedCardColor}"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Opacity="0.12" Margin="0,20,0,0"/>
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding RevealedRank}" FontSize="52" FontWeight="Bold"
+                                               HorizontalAlignment="Center"
+                                               Foreground="{Binding RevealedCardColor}"/>
+                                    <TextBlock Text="{Binding RevealedSuit}" FontSize="30"
+                                               HorizontalAlignment="Center"
+                                               Foreground="{Binding RevealedCardColor}"/>
+                                </StackPanel>
+                                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8,6">
+                                    <TextBlock Text="{Binding RevealedRank}" FontSize="14" FontWeight="Bold"
+                                               Foreground="{Binding RevealedCardColor}"/>
+                                    <TextBlock Text="{Binding RevealedSuit}" FontSize="12"
+                                               Foreground="{Binding RevealedCardColor}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Mensaje -->
+                <TextBlock Grid.Row="2" Text="{Binding StatusMessage}"
+                           FontSize="18" FontWeight="Bold" Foreground="White"
+                           HorizontalAlignment="Center" TextWrapping="Wrap"
+                           TextAlignment="Center" Margin="40,15"/>
+
+                <!-- Botones predicción -->
+                <StackPanel Grid.Row="3" Orientation="Horizontal"
+                            HorizontalAlignment="Center" Margin="0,0,0,8">
+                    <Button Content="▲ Pi (Mayor)"  Style="{DynamicResource GoldButton}" Command="{Binding PiCommand}"  Width="160" Margin="8,0"/>
+                    <Button Content="= Ti (Igual)"  Style="{DynamicResource GoldButton}" Command="{Binding TiCommand}"  Width="160" Margin="8,0"/>
+                    <Button Content="▼ Par (Menor)" Style="{DynamicResource GoldButton}" Command="{Binding ParCommand}" Width="160" Margin="8,0"/>
+                </StackPanel>
+
+                <!-- Botones control -->
+                <StackPanel Grid.Row="4" Orientation="Horizontal"
+                            HorizontalAlignment="Center" Margin="0,0,0,20">
+                    <Button Content="Siguiente →" Style="{DynamicResource GoldButton}" Command="{Binding NextRoundCommand}" Width="160" Margin="8,0"/>
+                    <Button Content="← Salir"     Style="{DynamicResource BackButton}" Command="{Binding ExitCommand}"      Width="120" Margin="8,0"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

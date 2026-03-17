@@ -1,0 +1,104 @@
+<Application x:Class="JuegosDeCartas_OpenCampus.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:JuegosDeCartas_OpenCampus"
+             xmlns:vm="clr-namespace:JuegosDeCartas_OpenCampus.ViewModels"
+             xmlns:views="clr-namespace:JuegosDeCartas_OpenCampus.Views"
+             xmlns:conv="clr-namespace:JuegosDeCartas_OpenCampus.Converters"
+             StartupUri="Views/MainWindow.xaml">
+
+    <Application.Resources>
+
+        <!-- Converters globales -->
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <conv:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
+
+        <!-- DataTemplates: cada ViewModel se mapea a su View automáticamente -->
+        <DataTemplate DataType="{x:Type vm:MainMenuViewModel}">
+            <views:MainMenuView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:GameModeSelectionViewModel}">
+            <views:GameModeSelectionView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:InstructionsViewModel}">
+            <views:InstructionsView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:BlackJackViewModel}">
+            <views:BlackJackView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:VeintiUnoViewModel}">
+            <views:VeintiUnoView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:PitiparViewModel}">
+            <views:PitiparView/>
+        </DataTemplate>
+
+        <!-- Estilo botón dorado -->
+        <Style x:Key="GoldButton" TargetType="Button">
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="0,10"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="#D4AF37"/>
+            <Setter Property="BorderBrush" Value="#F2D479"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F2D479"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#B8962E"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Estilo botón volver -->
+        <Style x:Key="BackButton" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Margin" Value="0,15"/>
+            <Setter Property="Background" Value="#1A0F2E"/>
+            <Setter Property="Foreground" Value="#F2D479"/>
+            <Setter Property="BorderBrush" Value="#D4AF37"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#2B1B4A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Application.Resources>
+</Application>

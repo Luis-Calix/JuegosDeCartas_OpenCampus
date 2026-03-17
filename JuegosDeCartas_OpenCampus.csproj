@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\poker_texture.jpg"/>
+    <Resource Include="Assets\cards_bg.png"/>
+    <Resource Include="Assets\card_corner.png"/>
+  </ItemGroup>
+
+</Project>

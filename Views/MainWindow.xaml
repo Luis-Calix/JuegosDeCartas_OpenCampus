@@ -1,0 +1,35 @@
+﻿<Window x:Class="JuegosDeCartas_OpenCampus.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JuegosDeCartas_OpenCampus"
+        mc:Ignorable="d"
+        Title="Royal Card Games"
+        Height="750"
+        Width="1200"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="#0B0616">
+
+    <Grid>
+
+        <!-- Fondo con gradiente -->
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#1A0F2E" Offset="0"/>
+                <GradientStop Color="#0B0616" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <!-- Decoración cartas -->
+        <Image Source="pack://application:,,,/Assets/cards_bg.png"
+               Opacity="0.08"
+               Stretch="UniformToFill"/>
+
+        <!-- Contenido dinámico -->
+        <ContentControl Content="{Binding CurrentView}"/>
+
+    </Grid>
+
+</Window>

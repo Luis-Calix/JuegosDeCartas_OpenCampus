@@ -1,0 +1,94 @@
+﻿<UserControl x:Class="JuegosDeCartas_OpenCampus.Views.BlackJackView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="750" d:DesignWidth="1200">
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="pack://application:,,,/Assets/poker_texture.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+
+        <Border Margin="30" CornerRadius="25" BorderThickness="4" BorderBrush="#D4AF37">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Título -->
+                <TextBlock Grid.Row="0" Text="{Binding GameTitle}"
+                           FontSize="32" FontWeight="Bold" Foreground="#F2D479"
+                           HorizontalAlignment="Center" Margin="0,15,0,5"/>
+
+                <!-- Cartas Dealer -->
+                <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Dealer" FontSize="18" Foreground="White"
+                               HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                    <ItemsControl ItemsSource="{Binding DealerCards}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate><StackPanel Orientation="Horizontal"/></ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="4" CornerRadius="6" Background="White" Width="70" Height="100">
+                                    <TextBlock Text="{Binding Rank}" FontSize="22" FontWeight="Bold"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               Foreground="#1A0F2E"/>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock Text="{Binding DealerScore, StringFormat='Puntos: {0}'}"
+                               FontSize="16" Foreground="#F2D479" HorizontalAlignment="Center" Margin="0,6,0,0"/>
+                </StackPanel>
+
+                <!-- Separador -->
+                <Border Grid.Row="2" Height="2" Background="#D4AF37" Margin="80,0"/>
+
+                <!-- Cartas Jugador -->
+                <StackPanel Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Jugador" FontSize="18" Foreground="White"
+                               HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                    <ItemsControl ItemsSource="{Binding PlayerCards}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate><StackPanel Orientation="Horizontal"/></ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="4" CornerRadius="6" Background="White" Width="70" Height="100">
+                                    <TextBlock Text="{Binding Rank}" FontSize="22" FontWeight="Bold"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               Foreground="#1A0F2E"/>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock Text="{Binding PlayerScore, StringFormat='Puntos: {0}'}"
+                               FontSize="16" Foreground="#F2D479" HorizontalAlignment="Center" Margin="0,6,0,0"/>
+                </StackPanel>
+
+                <!-- Mensaje de estado -->
+                <TextBlock Grid.Row="4" Text="{Binding StatusMessage}"
+                           FontSize="20" FontWeight="Bold" Foreground="White"
+                           HorizontalAlignment="Center" Margin="0,10"/>
+
+                <!-- Botones -->
+                <StackPanel Grid.Row="5" Orientation="Horizontal"
+                            HorizontalAlignment="Center" Margin="0,0,0,20">
+                    <Button Content="Pedir Carta"  Style="{DynamicResource GoldButton}" Command="{Binding HitCommand}"      Width="150" Margin="8,0"/>
+                    <Button Content="Plantarse"    Style="{DynamicResource GoldButton}" Command="{Binding StandCommand}"    Width="150" Margin="8,0"/>
+                    <Button Content="Nueva Ronda"  Style="{DynamicResource GoldButton}" Command="{Binding NewRoundCommand}" Width="150" Margin="8,0"/>
+                    <Button Content="← Salir"      Style="{DynamicResource BackButton}" Command="{Binding ExitCommand}"     Width="120" Margin="8,0"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
+
