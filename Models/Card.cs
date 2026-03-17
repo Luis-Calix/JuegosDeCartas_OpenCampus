@@ -10,6 +10,9 @@ namespace JuegosDeCartas_OpenCampus.Models
     public class Card
     {
  
+        /// <summary>
+        /// Handles suits.
+        /// </summary>
         public string Suit { get; set; } = string.Empty;
 
         public string Rank { get; set; } = string.Empty;
