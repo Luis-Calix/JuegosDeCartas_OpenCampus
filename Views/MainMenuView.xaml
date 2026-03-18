@@ -3,97 +3,77 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:JuegosDeCartas_OpenCampus.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="800">
+
     <Grid>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="3*"/>
-        </Grid.ColumnDefinitions>
+        <!-- FONDO -->
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#1A0F2E" Offset="0"/>
+                <GradientStop Color="#2B1B4A" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
 
+        <!-- CONTENIDO CENTRADO -->
+        <StackPanel VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Width="320">
 
-        <!-- PANEL IZQUIERDO -->
-        <StackPanel Grid.Column="0"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            Width="260">
-
+            <!-- TÍTULO -->
             <TextBlock Text="CARD GAMES"
-           FontSize="34"
-           FontWeight="Bold"
-           Foreground="#F2D479"
-           TextAlignment="Center"
-           Margin="0 0 0 40"/>
+                       FontSize="42"
+                       FontWeight="Bold"
+                       Foreground="#F2D479"
+                       TextAlignment="Center"
+                       Margin="0 0 0 10"/>
 
-            <Button Content="♠ Blackjack"
-        Style="{DynamicResource GoldButton}"
-        Command="{Binding OpenBlackjackCommand}"/>
+            <Border Height="2"
+                    Background="#D4AF37"
+                    Margin="40 0 40 40"/>
 
-            <Button Content="⚔ Guerra"
-        Style="{DynamicResource GoldButton}"
-        Command="{Binding OpenTwentyOneCommand}"/>
+            <!-- JUEGOS -->
+            <TextBlock Text="Selecciona un juego"
+                       FontSize="14"
+                       Foreground="#B0B0B0"
+                       TextAlignment="Center"
+                       Margin="0 0 0 20"/>
 
-            <Button Content="♦ Pitipar"
-        Style="{DynamicResource GoldButton}"
-        Command="{Binding OpenPitiparCommand}"/>
+            <Button Content="♠  Blackjack"
+                    Style="{DynamicResource GoldButton}"
+                    Command="{Binding OpenBlackjackCommand}"
+                    Width="280" Height="52" FontSize="17"/>
+
+            <Button Content="⚔  Guerra"
+                    Style="{DynamicResource GoldButton}"
+                    Command="{Binding OpenTwentyOneCommand}"
+                    Width="280" Height="52" FontSize="17"/>
+
+            <Button Content="♦  Pitipar"
+                    Style="{DynamicResource GoldButton}"
+                    Command="{Binding OpenPitiparCommand}"
+                    Width="280" Height="52" FontSize="17"/>
+
+            <!-- SEPARADOR -->
+            <Border Height="1"
+                    Background="#555"
+                    Margin="40 24"/>
+
+            <!-- MULTIJUGADOR ONLINE -->
+            <Button Content="🌐  Multijugador Online"
+                    Style="{DynamicResource GoldButton}"
+                    Command="{Binding OpenOnlineCommand}"
+                    Width="280" Height="52" FontSize="17"/>
+
+            <!-- INSTRUCCIONES -->
+            <Button Content="📖  Instrucciones"
+                    Style="{DynamicResource BackButton}"
+                    Command="{Binding OpenInstructionsCommand}"
+                    Width="280" Height="44" FontSize="15"
+                    Margin="0 8 0 0"/>
 
         </StackPanel>
-
-        <!-- SCOREBOARD -->
-        <Border Grid.Column="1"
-        Margin="40"
-        CornerRadius="12"
-        BorderBrush="#D4AF37"
-        BorderThickness="2"
-        Padding="20">
-
-            <Border.Background>
-
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#2B1B4A" Offset="0"/>
-                    <GradientStop Color="#1A0F2E" Offset="1"/>
-                </LinearGradientBrush>
-
-            </Border.Background>
-
-            <StackPanel>
-
-                <TextBlock Text="MEJORES JUGADORES"
-           FontSize="26"
-           FontWeight="Bold"
-           Foreground="#F2D479"
-           Margin="0 0 0 20"/>
-
-                <DataGrid ItemsSource="{Binding TopPlayers}"
-          AutoGenerateColumns="False"
-          Background="Transparent"
-          Foreground="White"
-          BorderThickness="0"
-          GridLinesVisibility="None">
-
-                    <DataGrid.Columns>
-
-                        <DataGridTextColumn Header="Jugador"
-Binding="{Binding PlayerName}"
-Width="*"/>
-
-                        <DataGridTextColumn Header="Juego"
-Binding="{Binding Game}"
-Width="*"/>
-
-                        <DataGridTextColumn Header="Puntos"
-Binding="{Binding Points}"
-Width="*"/>
-
-                    </DataGrid.Columns>
-
-                </DataGrid>
-
-            </StackPanel>
-
-        </Border>
 
     </Grid>
 </UserControl>

@@ -9,9 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\poker_texture.jpg"/>
-    <Resource Include="Assets\cards_bg.png"/>
-    <Resource Include="Assets\card_corner.png"/>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\poker_texture.jpg" />
+    <Resource Include="Assets\cards_bg.png" />
+    <Resource Include="Assets\card_corner.png" />
   </ItemGroup>
 
 </Project>

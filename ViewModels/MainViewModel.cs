@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using JuegosDeCartas_OpenCampus.Services;
 
 namespace JuegosDeCartas_OpenCampus.ViewModels
@@ -29,14 +24,14 @@ namespace JuegosDeCartas_OpenCampus.ViewModels
 
         private object CreateView(ViewName view, ViewName selectedGame) => view switch
         {
-            ViewName.MainMenu          => new MainMenuViewModel(Navigation),
+            ViewName.MainMenu => new MainMenuViewModel(Navigation),
             ViewName.GameModeSelection => new GameModeSelectionViewModel(Navigation, selectedGame),
-            ViewName.Instructions      => new InstructionsViewModel(Navigation, selectedGame),
-            ViewName.BlackJack         => new BlackJackViewModel(Navigation),
-            ViewName.VeintiUno         => new VeintiUnoViewModel(Navigation),
-            ViewName.Pitipar           => new PitiparViewModel(Navigation),
-            _                          => throw new ArgumentOutOfRangeException(nameof(view))
+            ViewName.Instructions => new InstructionsViewModel(Navigation, selectedGame),
+            ViewName.BlackJack => new BlackJackViewModel(Navigation),
+            ViewName.VeintiUno => new VeintiUnoViewModel(Navigation),
+            ViewName.Pitipar => new PitiparViewModel(Navigation),
+            ViewName.OnlineLobby => new OnlineLobbyViewModel(Navigation),  // ← LÍNEA AGREGADA
+            _ => throw new ArgumentOutOfRangeException(nameof(view))
         };
     }
 }
-

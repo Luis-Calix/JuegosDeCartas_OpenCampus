@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using JuegosDeCartas_OpenCampus.Models;
 using JuegosDeCartas_OpenCampus.Services;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 namespace JuegosDeCartas_OpenCampus.ViewModels
 {
@@ -15,11 +9,11 @@ namespace JuegosDeCartas_OpenCampus.ViewModels
     {
         private readonly NavigationService _nav;
 
-        public ObservableCollection<ScoreBoardPlayer> TopPlayers { get; } = new();
-
         public ICommand OpenBlackjackCommand { get; }
         public ICommand OpenTwentyOneCommand { get; }
-        public ICommand OpenPitiparCommand   { get; }
+        public ICommand OpenPitiparCommand { get; }
+        public ICommand OpenOnlineCommand { get; }
+        public ICommand OpenInstructionsCommand { get; }
 
         public MainMenuViewModel(NavigationService nav)
         {
@@ -34,15 +28,12 @@ namespace JuegosDeCartas_OpenCampus.ViewModels
             OpenPitiparCommand = new RelayCommand(() =>
                 _nav.NavigateTo(ViewName.GameModeSelection, selectedGame: ViewName.Pitipar));
 
-            LoadTopPlayers();
-        }
+            // ← Nuevo: navega al lobby online
+            OpenOnlineCommand = new RelayCommand(() =>
+                _nav.NavigateTo(ViewName.OnlineLobby));
 
-        private void LoadTopPlayers()
-        {
-            TopPlayers.Add(new ScoreBoardPlayer { PlayerName = "Jugador 1", Game = "BlackJack", Points = 150 });
-            TopPlayers.Add(new ScoreBoardPlayer { PlayerName = "Jugador 2", Game = "Veintiuno", Points = 120 });
-            TopPlayers.Add(new ScoreBoardPlayer { PlayerName = "Jugador 3", Game = "Pitipar",   Points = 90  });
+            OpenInstructionsCommand = new RelayCommand(() =>
+                _nav.NavigateTo(ViewName.Instructions));
         }
     }
 }
-

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using JuegosDeCartas_OpenCampus.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace JuegosDeCartas_OpenCampus.Services
 {
@@ -16,7 +16,8 @@ namespace JuegosDeCartas_OpenCampus.Services
         Instructions,
         BlackJack,
         VeintiUno,
-        Pitipar
+        Pitipar,
+        OnlineLobby,
     }
 
     public class NavigationService : INotifyPropertyChanged
@@ -35,6 +36,18 @@ namespace JuegosDeCartas_OpenCampus.Services
         public NavigationService(Func<ViewName, ViewName, object> viewFactory)
         {
             _viewFactory = viewFactory;
+        }
+
+        /// <summary>
+        /// Navega a un ViewModel ya construido (usado por el lobby online
+        /// para pasar al juego conservando la conexión SignalR).
+        /// </summary>
+        public void NavigateToViewModel(BaseViewModel viewModel)
+        {
+            if (_currentView is not null)
+                _history.Push(_currentView);
+
+            CurrentView = viewModel;
         }
 
         public void NavigateTo(ViewName view, bool addToHistory = true, ViewName selectedGame = ViewName.BlackJack)
@@ -58,4 +71,3 @@ namespace JuegosDeCartas_OpenCampus.Services
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }
-

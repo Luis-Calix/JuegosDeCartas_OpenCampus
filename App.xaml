@@ -38,6 +38,15 @@
             <views:PitiparView/>
         </DataTemplate>
 
+        <!-- ↓ NUEVOS para el modo online ↓ -->
+        <DataTemplate DataType="{x:Type vm:OnlineLobbyViewModel}">
+            <views:OnlineLobbyView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:OnlineBlackJackViewModel}">
+            <views:OnlineGameView/>
+        </DataTemplate>
+
         <!-- Estilo botón dorado -->
         <Style x:Key="GoldButton" TargetType="Button">
             <Setter Property="Height" Value="50"/>
@@ -98,6 +107,27 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <!-- Estilos para el Lobby Online -->
+        <Style x:Key="LobbyInput" TargetType="TextBox">
+            <Setter Property="Background" Value="#1E3A5F"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#D4AF37"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8 6"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="CaretBrush" Value="White"/>
+        </Style>
+
+        <Style x:Key="LobbyCombo" TargetType="ComboBox">
+            <Setter Property="Background" Value="#1E3A5F"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#D4AF37"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="FontSize" Value="14"/>
         </Style>
 
     </Application.Resources>
