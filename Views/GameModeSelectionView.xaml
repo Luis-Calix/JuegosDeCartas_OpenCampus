@@ -48,7 +48,7 @@
 
                 <Button Content="Volver"
         Style="{DynamicResource BackButton}"
-        Command="{Binding BackCommand}"/>
+        Command="{Binding BackCommand}" Height="50"/>
 
             </StackPanel>
 

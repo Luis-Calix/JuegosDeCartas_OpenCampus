@@ -60,7 +60,7 @@ Command="{Binding StartGameCommand}" Height="42"/>
 
                     <Button Content="Volver"
 Style="{DynamicResource BackButton}"
-Command="{Binding BackCommand}"/>
+Command="{Binding BackCommand}" Width="74" Height="42"/>
 
                 </StackPanel>
 

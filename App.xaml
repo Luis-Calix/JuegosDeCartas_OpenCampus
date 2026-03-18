@@ -73,8 +73,9 @@
 
         <!-- Estilo botón volver -->
         <Style x:Key="BackButton" TargetType="Button">
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="Margin" Value="0,15"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="0,10"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="Background" Value="#1A0F2E"/>
             <Setter Property="Foreground" Value="#F2D479"/>
             <Setter Property="BorderBrush" Value="#D4AF37"/>

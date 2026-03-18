@@ -28,7 +28,7 @@ namespace JuegosDeCartas_OpenCampus.Models
         {
             Suit      = suit;
             Rank      = rank;
-            Value     = value;
+            Value     = 10;
             ImagePath = BuildImagePath(suit, rank);
         }
 

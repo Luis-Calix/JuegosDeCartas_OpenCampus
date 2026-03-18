@@ -160,7 +160,7 @@ Width="140"/>
                     <Button Content="Salir"
 Style="{StaticResource BackButton}"
 Command="{Binding ExitCommand}"
-Width="120"/>
+Width="140"/>
 
                 </StackPanel>
 

@@ -9,13 +9,12 @@
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
 
         <!-- PANEL IZQUIERDO -->
-        <StackPanel Grid.Column="0"
+        <StackPanel
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
             Width="260">
@@ -40,60 +39,5 @@
         Command="{Binding OpenPitiparCommand}"/>
 
         </StackPanel>
-
-        <!-- SCOREBOARD -->
-        <Border Grid.Column="1"
-        Margin="40"
-        CornerRadius="12"
-        BorderBrush="#D4AF37"
-        BorderThickness="2"
-        Padding="20">
-
-            <Border.Background>
-
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#2B1B4A" Offset="0"/>
-                    <GradientStop Color="#1A0F2E" Offset="1"/>
-                </LinearGradientBrush>
-
-            </Border.Background>
-
-            <StackPanel>
-
-                <TextBlock Text="MEJORES JUGADORES"
-           FontSize="26"
-           FontWeight="Bold"
-           Foreground="#F2D479"
-           Margin="0 0 0 20"/>
-
-                <DataGrid ItemsSource="{Binding TopPlayers}"
-          AutoGenerateColumns="False"
-          Background="Transparent"
-          Foreground="White"
-          BorderThickness="0"
-          GridLinesVisibility="None">
-
-                    <DataGrid.Columns>
-
-                        <DataGridTextColumn Header="Jugador"
-Binding="{Binding PlayerName}"
-Width="*"/>
-
-                        <DataGridTextColumn Header="Juego"
-Binding="{Binding Game}"
-Width="*"/>
-
-                        <DataGridTextColumn Header="Puntos"
-Binding="{Binding Points}"
-Width="*"/>
-
-                    </DataGrid.Columns>
-
-                </DataGrid>
-
-            </StackPanel>
-
-        </Border>
-
     </Grid>
 </UserControl>

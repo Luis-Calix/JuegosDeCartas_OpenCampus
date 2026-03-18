@@ -85,7 +85,7 @@
                     <Button Content="Pedir Carta"  Style="{DynamicResource GoldButton}" Command="{Binding HitCommand}"      Width="150" Margin="8,0"/>
                     <Button Content="Plantarse"    Style="{DynamicResource GoldButton}" Command="{Binding StandCommand}"    Width="150" Margin="8,0"/>
                     <Button Content="Nueva Ronda"  Style="{DynamicResource GoldButton}" Command="{Binding NewRoundCommand}" Width="150" Margin="8,0"/>
-                    <Button Content="← Salir"      Style="{DynamicResource BackButton}" Command="{Binding ExitCommand}"     Width="120" Margin="8,0"/>
+                    <Button Content="← Salir"      Style="{DynamicResource BackButton}" Command="{Binding ExitCommand}"     Width="150" Margin="8,0" Height="50"/>
                 </StackPanel>
             </Grid>
         </Border>

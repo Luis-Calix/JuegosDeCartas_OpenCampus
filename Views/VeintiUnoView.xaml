@@ -26,24 +26,47 @@
                            FontSize="32" FontWeight="Bold" Foreground="#E74C3C"
                            HorizontalAlignment="Center" Margin="0,15,0,5"/>
 
-                <!-- Marcador -->
-                <Grid Grid.Row="1" Margin="60,5,60,10">
+                <!-- Marcador + contadores de mazo -->
+                <Grid Grid.Row="1" Margin="40,5,40,10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
+
+                    <!-- Jugador: victorias + cartas en mazo -->
                     <StackPanel Grid.Column="0" HorizontalAlignment="Center">
-                        <TextBlock Text="TÚ" FontSize="14" Foreground="#AAA" HorizontalAlignment="Center"/>
-                        <TextBlock Text="{Binding PlayerWins}" FontSize="42" FontWeight="Bold"
-                                   Foreground="#E74C3C" HorizontalAlignment="Center"/>
+                        <TextBlock Text="TÚ" FontSize="13" Foreground="#AAA" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding PlayerWins, StringFormat='✔ {0} victorias'}"
+                                   FontSize="16" FontWeight="Bold" Foreground="#E74C3C" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding PlayerDeckCount, StringFormat='🂠 {0} cartas'}"
+                                   FontSize="13" Foreground="#AAA" HorizontalAlignment="Center"/>
                     </StackPanel>
-                    <TextBlock Grid.Column="1" Text="VS" FontSize="22" Foreground="White"
-                               VerticalAlignment="Center" Margin="20,0"/>
-                    <StackPanel Grid.Column="2" HorizontalAlignment="Center">
-                        <TextBlock Text="DEALER" FontSize="14" Foreground="#AAA" HorizontalAlignment="Center"/>
-                        <TextBlock Text="{Binding DealerWins}" FontSize="42" FontWeight="Bold"
-                                   Foreground="#AAA" HorizontalAlignment="Center"/>
+
+                    <!-- Bote de guerra (visible solo en guerra) -->
+                    <StackPanel Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center"
+                                Visibility="{Binding IsWarActive, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <TextBlock Text="⚔ GUERRA ⚔" FontSize="18" FontWeight="Bold"
+                                   Foreground="#E74C3C" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding WarPotCount, StringFormat='Bote: {0} cartas'}"
+                                   FontSize="13" Foreground="#F2D479" HorizontalAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- VS (visible fuera de guerra) -->
+                    <TextBlock Grid.Column="2"
+                               Text="VS" FontSize="20" Foreground="White"
+                               VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0"
+                               Visibility="{Binding IsWarActive, Converter={StaticResource InverseBoolToVisibilityConverter}}"/>
+
+                    <!-- Dealer: victorias + cartas en mazo -->
+                    <StackPanel Grid.Column="4" HorizontalAlignment="Center">
+                        <TextBlock Text="DEALER" FontSize="13" Foreground="#AAA" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding DealerWins, StringFormat='✔ {0} victorias'}"
+                                   FontSize="16" FontWeight="Bold" Foreground="#AAA" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding DealerDeckCount, StringFormat='🂠 {0} cartas'}"
+                                   FontSize="13" Foreground="#AAA" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
 
@@ -55,39 +78,92 @@
                         <ColumnDefinition Width="240"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- Carta Jugador -->
+                    <!-- Columna jugador: cartas boca abajo + carta boca arriba -->
                     <StackPanel Grid.Column="0" HorizontalAlignment="Center">
                         <TextBlock Text="Tu carta" FontSize="16" Foreground="White"
-                                   HorizontalAlignment="Center" Margin="0,0,0,12"/>
-                        <Border Width="160" Height="220" CornerRadius="16"
+                                   HorizontalAlignment="Center" Margin="0,0,0,8"/>
+
+                        <!-- Cartas boca abajo apiladas (solo en guerra) -->
+                        <ItemsControl ItemsSource="{Binding PlayerFaceDownCards}"
+                                      Visibility="{Binding IsWarActive, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Width="50" Height="70" CornerRadius="8"
+                                            BorderBrush="#D4AF37" BorderThickness="2" Margin="2,0">
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                <GradientStop Color="#2B1B4A" Offset="0"/>
+                                                <GradientStop Color="#1A0F2E" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                        <TextBlock Text="🂠" FontSize="28"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                   Foreground="#D4AF37"/>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <!-- Carta boca arriba -->
+                        <Border Width="160" Height="210" CornerRadius="16" Margin="0,6,0,0"
                                 Background="White" BorderBrush="#C0392B" BorderThickness="4">
                             <Grid>
                                 <TextBlock Text="{Binding PlayerCardSuit}" FontSize="80"
                                            Foreground="{Binding PlayerCardColor}"
                                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                                           Opacity="0.15" Margin="0,30,0,0"/>
+                                           Opacity="0.12" Margin="0,20,0,0"/>
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding PlayerCardDisplay}" FontSize="52" FontWeight="Bold"
-                                               HorizontalAlignment="Center"
-                                               Foreground="{Binding PlayerCardColor}"/>
-                                    <TextBlock Text="{Binding PlayerCardSuit}" FontSize="28"
-                                               HorizontalAlignment="Center"
-                                               Foreground="{Binding PlayerCardColor}"/>
+                                    <TextBlock Text="{Binding PlayerCardDisplay}" FontSize="50" FontWeight="Bold"
+                                               HorizontalAlignment="Center" Foreground="{Binding PlayerCardColor}"/>
+                                    <TextBlock Text="{Binding PlayerCardSuit}" FontSize="26"
+                                               HorizontalAlignment="Center" Foreground="{Binding PlayerCardColor}"/>
                                 </StackPanel>
                             </Grid>
                         </Border>
                     </StackPanel>
 
-                    <!-- VS central -->
+                    <!-- Centro -->
                     <TextBlock Grid.Column="1" Text="⚔" FontSize="52" Foreground="#E74C3C"
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                    <!-- Carta Dealer -->
+                    <!-- Columna dealer -->
                     <StackPanel Grid.Column="2" HorizontalAlignment="Center">
                         <TextBlock Text="Carta del Dealer" FontSize="16" Foreground="White"
-                                   HorizontalAlignment="Center" Margin="0,0,0,12"/>
-                        <!-- Boca abajo (antes de revelar) -->
-                        <Border Width="160" Height="220" CornerRadius="16"
+                                   HorizontalAlignment="Center" Margin="0,0,0,8"/>
+
+                        <!-- Cartas boca abajo del dealer (solo en guerra) -->
+                        <ItemsControl ItemsSource="{Binding DealerFaceDownCards}"
+                                      Visibility="{Binding IsWarActive, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Width="50" Height="70" CornerRadius="8"
+                                            BorderBrush="#D4AF37" BorderThickness="2" Margin="2,0">
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                <GradientStop Color="#2B1B4A" Offset="0"/>
+                                                <GradientStop Color="#1A0F2E" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                        <TextBlock Text="🂠" FontSize="28"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                   Foreground="#D4AF37"/>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <!-- Carta boca arriba del dealer: oculta -->
+                        <Border Width="160" Height="210" CornerRadius="16" Margin="0,6,0,0"
                                 BorderBrush="#C0392B" BorderThickness="4"
                                 Visibility="{Binding IsDealerHidden, Converter={StaticResource BoolToVisibilityConverter}}">
                             <Border.Background>
@@ -99,22 +175,21 @@
                             <TextBlock Text="🂠" FontSize="80" HorizontalAlignment="Center"
                                        VerticalAlignment="Center" Foreground="#D4AF37"/>
                         </Border>
-                        <!-- Revelada -->
-                        <Border Width="160" Height="220" CornerRadius="16"
+
+                        <!-- Carta boca arriba del dealer: revelada -->
+                        <Border Width="160" Height="210" CornerRadius="16" Margin="0,6,0,0"
                                 Background="White" BorderBrush="#C0392B" BorderThickness="4"
                                 Visibility="{Binding IsDealerHidden, Converter={StaticResource InverseBoolToVisibilityConverter}}">
                             <Grid>
                                 <TextBlock Text="{Binding DealerCardSuit}" FontSize="80"
                                            Foreground="{Binding DealerCardColor}"
                                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                                           Opacity="0.15" Margin="0,30,0,0"/>
+                                           Opacity="0.12" Margin="0,20,0,0"/>
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding DealerCardDisplay}" FontSize="52" FontWeight="Bold"
-                                               HorizontalAlignment="Center"
-                                               Foreground="{Binding DealerCardColor}"/>
-                                    <TextBlock Text="{Binding DealerCardSuit}" FontSize="28"
-                                               HorizontalAlignment="Center"
-                                               Foreground="{Binding DealerCardColor}"/>
+                                    <TextBlock Text="{Binding DealerCardDisplay}" FontSize="50" FontWeight="Bold"
+                                               HorizontalAlignment="Center" Foreground="{Binding DealerCardColor}"/>
+                                    <TextBlock Text="{Binding DealerCardSuit}" FontSize="26"
+                                               HorizontalAlignment="Center" Foreground="{Binding DealerCardColor}"/>
                                 </StackPanel>
                             </Grid>
                         </Border>
@@ -123,17 +198,17 @@
 
                 <!-- Mensaje -->
                 <TextBlock Grid.Row="3" Text="{Binding StatusMessage}"
-                           FontSize="18" FontWeight="Bold" Foreground="White"
+                           FontSize="17" FontWeight="Bold" Foreground="White"
                            HorizontalAlignment="Center" TextWrapping="Wrap"
                            TextAlignment="Center" Margin="40,10"/>
 
                 <!-- Botones -->
                 <StackPanel Grid.Row="4" Orientation="Horizontal"
                             HorizontalAlignment="Center" Margin="0,0,0,20">
-                    <Button Content="⚔ Robar carta"   Style="{DynamicResource GoldButton}" Command="{Binding DrawCommand}"      Width="160" Margin="8,0"/>
-                    <Button Content="▶ Siguiente"      Style="{DynamicResource GoldButton}" Command="{Binding NextRoundCommand}" Width="160" Margin="8,0"/>
-                    <Button Content="🔄 Nueva partida" Style="{DynamicResource GoldButton}" Command="{Binding NewGameCommand}"   Width="160" Margin="8,0"/>
-                    <Button Content="← Salir"          Style="{DynamicResource BackButton}" Command="{Binding ExitCommand}"     Width="120" Margin="8,0"/>
+                    <Button Content="⚔ Robar carta"    Style="{DynamicResource GoldButton}" Command="{Binding DrawCommand}"      Width="160" Margin="8,0"/>
+                    <Button Content="▶ Siguiente"       Style="{DynamicResource GoldButton}" Command="{Binding NextRoundCommand}" Width="160" Margin="8,0"/>
+                    <Button Content="🔄 Nueva partida"  Style="{DynamicResource GoldButton}" Command="{Binding NewGameCommand}"   Width="160" Margin="8,0"/>
+                    <Button Content="← Salir"           Style="{DynamicResource BackButton}" Command="{Binding ExitCommand}"     Width="160" Margin="8,0" Height="50"/>
                 </StackPanel>
             </Grid>
         </Border>

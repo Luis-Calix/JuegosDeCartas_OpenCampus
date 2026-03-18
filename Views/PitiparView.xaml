@@ -148,7 +148,7 @@
                 <StackPanel Grid.Row="4" Orientation="Horizontal"
                             HorizontalAlignment="Center" Margin="0,0,0,20">
                     <Button Content="Siguiente →" Style="{DynamicResource GoldButton}" Command="{Binding NextRoundCommand}" Width="160" Margin="8,0"/>
-                    <Button Content="← Salir"     Style="{DynamicResource BackButton}" Command="{Binding ExitCommand}"      Width="120" Margin="8,0"/>
+                    <Button Content="← Salir"     Style="{DynamicResource BackButton}" Command="{Binding ExitCommand}"      Width="160" Margin="8,0" Height="50"/>
                 </StackPanel>
             </Grid>
         </Border>
